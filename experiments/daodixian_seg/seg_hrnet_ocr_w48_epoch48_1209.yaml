@@ -1,0 +1,121 @@
+CUDNN:
+  BENCHMARK: true
+  DETERMINISTIC: false
+  ENABLED: true
+# GPUS: (0,1,2,3)
+GPUS: (0,)
+# OUTPUT_DIR: 'outputs/daodixian_seg_1210_bs_8_class_weight_epoch148/'
+# LOG_DIR: 'logs/daodixian_seg_1210_bs_8_class_weight/'
+OUTPUT_DIR: 'outputs/daodixian_seg_1209_bs_8_and_validate/'
+LOG_DIR: 'logs/daodixian_seg_1209_bs_8_and_validate/'
+WORKERS: 4
+PRINT_FREQ: 10
+
+DATASET:
+  DATASET: daodixian_seg
+  ROOT: data/
+  # TEST_SET: 'list/daodixian_seg/test_1209.lst'
+  # TEST_SET: 'list/daodixian_seg/val_1209.lst'
+  # TEST_SET: 'list/daodixian_seg/val_train_1209.lst'
+  TEST_SET: 'list/daodixian_seg/val_1209_debug.lst'
+  TRAIN_SET: 'list/daodixian_seg/train_1209.lst' 
+  NUM_CLASSES: 2
+MODEL:
+  NAME: seg_hrnet_ocr
+  NUM_OUTPUTS: 2
+  PRETRAINED: "pretrained_models/hrnetv2_w48_imagenet_pretrained.pth"
+  EXTRA:
+    FINAL_CONV_KERNEL: 1
+    STAGE1:
+      NUM_MODULES: 1
+      NUM_RANCHES: 1
+      BLOCK: BOTTLENECK
+      NUM_BLOCKS:
+      - 4
+      NUM_CHANNELS:
+      - 64
+      FUSE_METHOD: SUM
+    STAGE2:
+      NUM_MODULES: 1
+      NUM_BRANCHES: 2
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 48
+      - 96
+      FUSE_METHOD: SUM
+    STAGE3:
+      NUM_MODULES: 4
+      NUM_BRANCHES: 3
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 48
+      - 96
+      - 192
+      FUSE_METHOD: SUM
+    STAGE4:
+      NUM_MODULES: 3
+      NUM_BRANCHES: 4
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 48
+      - 96
+      - 192
+      - 384
+      FUSE_METHOD: SUM
+LOSS:
+  USE_OHEM: false
+  OHEMTHRES: 0.9
+  OHEMKEEP: 131072
+  BALANCE_WEIGHTS: [0.4, 1]
+TRAIN:
+  IMAGE_SIZE:
+  - 1024
+  - 512
+  BASE_SIZE: 2048
+  BATCH_SIZE_PER_GPU: 2
+  SHUFFLE: true
+  BEGIN_EPOCH: 0
+  END_EPOCH: 148
+  RESUME: true
+  OPTIMIZER: sgd
+  LR: 0.01
+  WD: 0.0005
+  MOMENTUM: 0.9
+  NESTEROV: false
+  FLIP: true
+  MULTI_SCALE: true
+  DOWNSAMPLERATE: 1
+  IGNORE_LABEL: 255
+  SCALE_FACTOR: 16
+  RANDOM_BRIGHTNESS: False
+TEST:
+  IMAGE_SIZE:
+  - 2048
+  - 1024
+  BASE_SIZE: 2048
+  BATCH_SIZE_PER_GPU: 1
+  # FLIP_TEST: true
+  # MULTI_SCALE: true
+
+  # SCALE_LIST: [0.5,0.75,1.0,1.25,1.5,1.75]
+  SCALE_LIST: [0.5,0.75,1.0]
+  MODEL_FILE: 'outputs/daodixian_seg_1209_bs_8_and_validate/daodixian_seg/seg_hrnet_ocr_w48_epoch48_1209/best.pth'
+DEBUG:
+  DEBUG : False
+  SAVE_BATCH_IMAGES_GT: False
+  SAVE_BATCH_IMAGES_PRED : False
+  SAVE_HEATMAPS_GT : False
+  SAVE_HEATMAPS_PRED : False
+
