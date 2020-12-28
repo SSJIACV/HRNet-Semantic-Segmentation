@@ -79,7 +79,7 @@ tools_jss/json2lableImg_jss.py：该脚本将json标注的多边形转为citysca
 
 ### Reference
 
-参考 [HRNet-Semantic-Segmentation](https://github.com/HRNet/HRNet-Semantic-Segmentation/tree/HRNet-OCR)，阅读r本文档之前建议先阅读一下原作者的readme_ori.md文档
+参考 [HRNet-Semantic-Segmentation](https://github.com/HRNet/HRNet-Semantic-Segmentation/tree/HRNet-OCR)，阅读本文档之前建议先阅读一下原作者的readme_ori.md文档
 
 ### Contact
 
