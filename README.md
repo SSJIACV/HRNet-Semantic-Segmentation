@@ -77,6 +77,12 @@ $SEG_ROOT/data
 
 tools_jss/json2lableImg_jss.py：该脚本将json标注的多边形转为cityscapes数据集所需的png标注格式
 
+### Install requirements
+
+pip install -r requirements.txt
+pip install torch==1.4.0
+pip install torchvision==0.5.0
+
 ### Reference
 
 参考 [HRNet-Semantic-Segmentation](https://github.com/HRNet/HRNet-Semantic-Segmentation/tree/HRNet-OCR)，阅读本文档之前建议先阅读一下原作者的readme_ori.md文档
@@ -113,7 +119,3 @@ If you find this work or code is helpful in your research, please cite:
 }
 
 ````
-
-
-
-
